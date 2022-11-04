@@ -7,11 +7,11 @@ using System.Text;
 
 namespace API.Controllers
 {
-    public class AcoountController : BaseApiController
+    public class AccountController : BaseApiController
     {
         private readonly DataContext _context;
 
-        public AcoountController(DataContext context)
+        public AccountController(DataContext context)
         {
             _context = context;
         }
