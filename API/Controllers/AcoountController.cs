@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 using API.DTOs;
+using API.Services;
 
 namespace API.Controllers
 {
@@ -12,9 +13,12 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
 
-        public AccountController(DataContext context)
+        private readonly TokenService _tokenService;
+
+        public AccountController(DataContext context, TokenService tokenService)
         {
             _context = context;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -42,7 +46,7 @@ namespace API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<AppUser>> Login(LoginDTO loginDTO)
+        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
             var user = await _context.Users.SingleOrDefaultAsync(user => user.UserName == loginDTO.Username);
 
@@ -63,7 +67,11 @@ namespace API.Controllers
                 }
             }
 
-            return user;
+            return new UserDTO()
+            {
+                Username = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
         }
 
         private async Task<bool> UserExists(string username)
