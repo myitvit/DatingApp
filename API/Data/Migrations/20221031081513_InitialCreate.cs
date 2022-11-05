@@ -16,10 +16,7 @@ namespace API.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserName = table.Column<string>(type: "TEXT", nullable: false)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
+                constraints: table => table.PrimaryKey("PK_Users", x => x.Id));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
