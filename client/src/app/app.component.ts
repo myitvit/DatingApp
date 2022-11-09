@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   getUsers() {
 
 
-    this.http.get(this.accountService.baseUrl + '/api/users').subscribe(response => {
+    this.http.get(this.accountService.baseUrl + 'users').subscribe(response => {
       this.users = response;
     }, error => {
       console.log(error);
