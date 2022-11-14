@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using API.DTOs;
 using API.Services;
+using API.Interfaces;
 
 namespace API.Controllers
 {
@@ -13,9 +14,9 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
 
-        private readonly TokenService _tokenService;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(DataContext context, TokenService tokenService)
+        public AccountController(DataContext context, ITokenService tokenService)
         {
             _context = context;
             _tokenService = tokenService;
