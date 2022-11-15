@@ -8,6 +8,7 @@ import { AccountService } from './services/account.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   title = 'The Dating App';
   users: any;
@@ -25,8 +26,6 @@ export class AppComponent implements OnInit {
   }
 
   getUsers() {
-
-
     this.http.get(this.accountService.baseUrl + 'users').subscribe(response => {
       this.users = response;
     }, error => {
