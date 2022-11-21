@@ -15,6 +15,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { SharedModule } from './shared.module';
 import { TestErrorsComponent } from './test-errors/test-errors.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     MemberDetailComponent,
     ListsComponent,
     MessagesComponent,
-    TestErrorsComponent
+    TestErrorsComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
