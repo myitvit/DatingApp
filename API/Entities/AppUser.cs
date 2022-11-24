@@ -1,4 +1,5 @@
-﻿namespace API.Entities
+﻿using API.Extensions;
+namespace API.Entities
 {
     public class AppUser
     {
@@ -23,11 +24,22 @@
         public DateTime Created { get; set; } = DateTime.Now;
 
         public DateTime LastActive { get; set; } = DateTime.Now;
+
         public string Gender { get; set; }
+
         public string Inroduction { get; set; }
+
         public string LookingFor { get; set; }
+
         public string City { get; set; }
+
         public string Country { get; set; }
+        
         public ICollection<Photo> Protos { get; set; }
+
+        public int GetAge()
+        {
+            return DateOfBirth.CalculateAge();
+        }
     }
 }
