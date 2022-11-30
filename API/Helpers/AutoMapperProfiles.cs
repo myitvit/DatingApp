@@ -8,7 +8,11 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<AppUser, MemberDTO>();
+            CreateMap<AppUser, MemberDTO>()
+            .ForMember(destination => destination.PhotoUrl,
+                options => options.MapFrom(
+                    source => source.Photos.FirstOrDefault(x => x.IsMain).Url)
+                );
             CreateMap<Photo, PhotoDTO>();
         }
     }
