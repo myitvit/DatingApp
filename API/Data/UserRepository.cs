@@ -15,7 +15,9 @@ namespace API.Data
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await context.Users.ToListAsync();
+            return await context.Users
+            .Include(photos => photos.Photos)
+            .ToListAsync();
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
