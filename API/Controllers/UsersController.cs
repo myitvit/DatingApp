@@ -24,25 +24,21 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers()
         {
-            var users = await repository.GetUsersAsync();
-
-            return Ok(mapper.Map<IEnumerable<MemberDTO>>(users));
+            return Ok(await repository.GetMembersAsync());
         }
 
         // api/users/3
         [HttpGet("{id}")]
         public async Task<ActionResult<MemberDTO>> GetUser(int id)
         {
-            var user = await repository.GetUserByIdAsync(id);
-            return mapper.Map<MemberDTO>(user);
+            return await repository.GetMemberByIdAsync(id);
         }
 
         // api/users/John
         [HttpGet("{username}")]
         public async Task<ActionResult<MemberDTO>> GetUser(string username)
         {
-            var user = await repository.GetUserByUsernameAsync(username);
-            return mapper.Map<MemberDTO>(user);
+            return await repository.GetMemberByUsernameAsync(username);
         }
     }
 }
