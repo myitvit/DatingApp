@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using API.Interfaces;
 using API.DTOs;
 using AutoMapper;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace API.Controllers
 {
@@ -13,11 +15,8 @@ namespace API.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository repository;
-        private readonly IMapper mapper;
-
-        public UsersController(IUserRepository repository, IMapper mapper)
+        public UsersController(IUserRepository repository)
         {
-            this.mapper = mapper;
             this.repository = repository;
         }
 
