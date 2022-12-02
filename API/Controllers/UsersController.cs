@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using API.Interfaces;
 using API.DTOs;
 using AutoMapper;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace API.Controllers
 {

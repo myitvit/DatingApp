@@ -4,6 +4,8 @@ using API.Data;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using API.Helpers;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Extensions
 {
