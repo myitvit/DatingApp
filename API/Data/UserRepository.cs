@@ -70,6 +70,5 @@ namespace API.Data
             .ProjectTo<MemberDTO>(mapper.ConfigurationProvider)
             .SingleOrDefaultAsync();
         }
-
     }
 }

@@ -15,11 +15,8 @@ namespace API.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository repository;
-        private readonly IMapper mapper;
-
-        public UsersController(IUserRepository repository, IMapper mapper)
+        public UsersController(IUserRepository repository)
         {
-            this.mapper = mapper;
             this.repository = repository;
         }
 
