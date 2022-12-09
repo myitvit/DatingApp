@@ -1,6 +1,6 @@
 import { Photo } from "./photo";
 
-export interface RootObject {
+export interface Member {
     UserName: string;
     FirstName: string;
     LastName: string;
