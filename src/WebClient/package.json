@@ -18,6 +18,8 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@kolkov/ngx-gallery": "^2.0.1",
+    "@schematics/angular": "^15.0.3",
     "bootstrap": "^4.5.3",
     "bootswatch": "^5.2.2",
     "font-awesome": "^4.7.0",
@@ -25,6 +27,7 @@
     "ngx-toastr": "^14.3.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
+    "updated": "^2.0.3",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

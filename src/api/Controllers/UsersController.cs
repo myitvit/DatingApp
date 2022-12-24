@@ -27,11 +27,11 @@ namespace API.Controllers
         }
 
         // api/users/3
-        [HttpGet("{id}")]
-        public async Task<ActionResult<MemberDTO>> GetUser(int id)
-        {
-            return await repository.GetMemberByIdAsync(id);
-        }
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<MemberDTO>> GetUser(int id)
+        // {
+        //     return await repository.GetMemberByIdAsync(id);
+        // }
 
         // api/users/John
         [HttpGet("{username}")]
