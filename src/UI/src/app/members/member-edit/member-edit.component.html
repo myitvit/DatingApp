@@ -1,14 +1,15 @@
 <div class="row" *ngIf="member">
-  <div class="col-12">
-    <h1>Your profile: </h1>
-  </div>
-  <div class="col-12">
-    <div class="alert alert-info pb-0">
-      <p><strong>Information: </strong>You have made changes. Any unsaved changes will be lost</p>
+  <div class="row">
+    <div class="col-4 pb-4">
+      <h1>Your profile: </h1>
+    </div>
+    <div class="col-8">
+      <div class="alert alert-info pb-0" *ngIf="editForm.dirty">
+        <p><strong>Information: </strong>You have made changes. Any unsaved changes will be lost</p>
+      </div>
     </div>
   </div>
   <div class="row">
-
     <div class="col-4">
       <div class="card">
         <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"
@@ -33,7 +34,7 @@
         </div>
         <div class="card-footer">
           <div class="btn-group d-flex">
-            <button class="btn btn-success col-12">Save Changes</button>
+            <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success col-12">Save Changes</button>
           </div>
         </div>
       </div>
@@ -42,7 +43,7 @@
     <div class="col-8">
       <tabset class="member-tabset">
         <tab heading="About {{member.knownAs}}">
-          <form>
+          <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
             <div class="form-group">
               <h4>Description</h4>
               <textarea [(ngModel)]="member.introduction" name="introduction" rows="6" class="form-control"></textarea>
