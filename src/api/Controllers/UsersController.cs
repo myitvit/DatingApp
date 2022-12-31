@@ -8,6 +8,7 @@ using API.DTOs;
 using AutoMapper;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -15,8 +16,10 @@ namespace API.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IUserRepository repository;
-        public UsersController(IUserRepository repository)
+        private readonly IMapper mapper;
+        public UsersController(IUserRepository repository, IMapper mapper)
         {
+            this.mapper = mapper;
             this.repository = repository;
         }
 
@@ -38,6 +41,24 @@ namespace API.Controllers
         public async Task<ActionResult<MemberDTO>> GetUser(string username)
         {
             return await repository.GetMemberByUsernameAsync(username);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDTO memberUpdateDTO)
+        {
+            // Get the username from the request token
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await repository.GetUserByUsernameAsync(username);
+
+            mapper.Map(memberUpdateDTO, user);
+
+            repository.Update(user);
+
+            if (await repository.SaveAllAsync())
+            {
+                return NoContent();
+            }
+            return BadRequest("Failed to update user");
         }
     }
 }
