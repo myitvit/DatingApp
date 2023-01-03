@@ -2,7 +2,6 @@ using API.Interfaces;
 using API.Services;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 using API.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +15,8 @@ namespace API.Extensions
             services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
 
             services.AddScoped<ITokenService, TokenService>();
+
+            services.AddScoped<IPhotoService, PhotoService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
 
