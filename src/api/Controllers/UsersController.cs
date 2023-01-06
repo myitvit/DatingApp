@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using API.Extensions;
 using Microsoft.AspNetCore.Http;
 using API.Entities;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -93,5 +94,29 @@ namespace API.Controllers
 
             return BadRequest("Problem adding photo");
         }
+
+        [HttpPut("set-main-photo/{photoId}")]
+        public async Task<ActionResult> SetMainPhoto(int photoId)
+        {
+            var user = await repository.GetUserByUsernameAsync(User.GetUsername());
+            if (user == null) return BadRequest("User doesn't exist");
+
+            var photo = user.Photos.Find(x => x.Id == photoId);
+
+            if (photo == null) return BadRequest("Photo doesn't exist");
+
+            if (photo.IsMain) return BadRequest("This is already your main photo");
+
+            var currentMainPhoto = user.Photos.Find(x => x.IsMain);
+            if (currentMainPhoto == null) currentMainPhoto.IsMain = false;
+
+            photo.IsMain = true;
+
+            if (await repository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to set your main photo");
+        }
+
+
     }
 }
