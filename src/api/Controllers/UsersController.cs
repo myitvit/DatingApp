@@ -116,7 +116,5 @@ namespace API.Controllers
 
             return BadRequest("Failed to set your main photo");
         }
-
-
     }
 }
