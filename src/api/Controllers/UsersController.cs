@@ -101,14 +101,17 @@ namespace API.Controllers
             var user = await repository.GetUserByUsernameAsync(User.GetUsername());
             if (user == null) return BadRequest("User doesn't exist");
 
+            // Ensure other photos is not main
+            foreach(var currentMainPhoto in user.Photos.FindAll(x => x.IsMain))
+            {
+                currentMainPhoto.IsMain = false;
+            }
+
             var photo = user.Photos.Find(x => x.Id == photoId);
 
             if (photo == null) return BadRequest("Photo doesn't exist");
 
             if (photo.IsMain) return BadRequest("This is already your main photo");
-
-            var currentMainPhoto = user.Photos.Find(x => x.IsMain);
-            if (currentMainPhoto == null) currentMainPhoto.IsMain = false;
 
             photo.IsMain = true;
 
