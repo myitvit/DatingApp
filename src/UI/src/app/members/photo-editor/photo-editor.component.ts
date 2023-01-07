@@ -5,6 +5,8 @@ import { Member } from 'src/app/models/member';
 import { User } from 'src/app/models/user';
 import { AccountService } from 'src/app/services/account.service';
 import { environment } from 'src/environments/environment';
+import { Photo } from 'src/app/models/photo';
+import { MembersService } from 'src/app/services/members.service';
 
 @Component({
   selector: 'app-photo-editor',
@@ -18,7 +20,7 @@ export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
   user: User;
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService, private memberService: MembersService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => {
         if (user) this.user = user
@@ -53,8 +55,23 @@ export class PhotoEditorComponent implements OnInit {
       if (response) {
         const photo = JSON.parse(response);
         this.member.photos.push(photo);
-
       }
     }
+  }
+
+  setMainPhoto(photo: Photo) {
+    this.memberService.setMainPhoto(photo.id).subscribe(() => {
+      this.user.photoUrl = photo.url;
+      this.accountService.setCurrentUser(this.user);
+      this.member.photoUrl = photo.url;
+      this.member.photos.forEach(p => {
+        if (p.isMain == true) {
+          p.isMain = false;
+        }
+        if (p.id == photo.id) {
+          p.isMain = true;
+        }
+      });
+    })
   }
 }
