@@ -8,19 +8,21 @@ using API.DTOs;
 using API.Services;
 using API.Interfaces;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace API.Controllers
 {
     public class AccountController : BaseApiController
     {
-        private readonly DataContext _context;
+        private readonly DataContext context;
+        private readonly ITokenService tokenService;
+        private readonly IUserRepository userRepository;
 
-        private readonly ITokenService _tokenService;
-
-        public AccountController(DataContext context, ITokenService tokenService)
+        public AccountController(DataContext context, ITokenService tokenService, IUserRepository userRepository)
         {
-            _context = context;
-            _tokenService = tokenService;
+            this.userRepository = userRepository;
+            this.context = context;
+            this.tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -40,9 +42,9 @@ namespace API.Controllers
                 PasswordSalt = hmac.Key
             };
             // Add user to the EF
-            _context.Users.Add(user);
+            context.Users.Add(user);
             // Save changes to the DB
-            await _context.SaveChangesAsync();
+            await context.SaveChangesAsync();
 
             return user;
         }
@@ -50,12 +52,9 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(user => user.UserName == loginDTO.Username);
+            var user = await userRepository.GetUserByUsernameAsync(loginDTO.Username);
 
-            if (user == null)
-            {
-                return Unauthorized("Invalid username");
-            }
+            if (user == null) return Unauthorized("Invalid username");
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
 
@@ -72,13 +71,14 @@ namespace API.Controllers
             return new UserDTO()
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = tokenService.CreateToken(user),
+                PhotoUrl = user.Photos.Find(x => x.IsMain).Url
             };
         }
 
         private async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(user => user.UserName == username.ToLower());
+            return await context.Users.AnyAsync(user => user.UserName == username.ToLower());
         }
     }
 }

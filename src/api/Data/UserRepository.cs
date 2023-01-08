@@ -35,7 +35,9 @@ namespace API.Data
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await context.Users.SingleOrDefaultAsync(user => user.UserName == username);
+            return await context.Users
+            .Include(photos => photos.Photos)
+            .SingleOrDefaultAsync(user => user.UserName == username);
         }
 
         public async Task<bool> SaveAllAsync()
