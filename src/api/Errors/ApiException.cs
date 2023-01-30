@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Primitives;
-
-namespace API.Errors
+﻿namespace API.Errors
 {
     public class ApiException
     {

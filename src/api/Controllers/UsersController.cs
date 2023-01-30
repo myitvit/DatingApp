@@ -1,14 +1,14 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using API.Interfaces;
 using API.DTOs;
-using AutoMapper;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using API.Extensions;
-using Microsoft.AspNetCore.Http;
 using API.Entities;
+using API.Extensions;
+using API.Interfaces;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {

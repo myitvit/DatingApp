@@ -1,10 +1,10 @@
+using API.Data;
+using API.Helpers;
 using API.Interfaces;
 using API.Services;
-using API.Data;
 using Microsoft.EntityFrameworkCore;
-using API.Helpers;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace API.Extensions
 {

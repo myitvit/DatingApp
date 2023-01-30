@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Authorization;
